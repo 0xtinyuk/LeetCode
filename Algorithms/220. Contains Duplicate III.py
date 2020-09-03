@@ -15,6 +15,3 @@ class Solution:
             if i-k>=0:
                 map.pop(nums[i-k]//(t+1))
         return False
-        
-
-            

@@ -9,3 +9,4 @@ class Solution:
             last = dict[s[i]]
             ans +=last
         return ans
+        

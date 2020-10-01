@@ -10,4 +10,4 @@ class Solution:
         if found == len(s):
             return 0
         else:
-            return found+1
+            return found+1     

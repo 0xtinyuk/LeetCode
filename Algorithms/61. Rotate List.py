@@ -27,4 +27,3 @@ class Solution:
         head = new_tail.next
         new_tail.next = None
         return head
-

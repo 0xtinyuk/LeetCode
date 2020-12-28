@@ -1,42 +1,26 @@
 class Solution:
-    def myAtoi(self, str: str) -> int:
-        if not str:
-            return 0
-        i = 0
+    def myAtoi(self, s: str) -> int:
         positive = True
-        while i<len(str):
-            ch = str[i]
-            if ch ==' ':
-                i +=1
-                continue
-            if (ch=='+' or ch=='-'):
-                i+=1
-                if ch=='-':
-                    positive=False
-                break
-            if (ch>='0' and ch<='9'):
-                break
+        i = 0
+        while i<len(s) and s[i]==' ':
+            i+=1
+        if i==len(s):
             return 0
-        counter = 0
+        if s[i]=='+' or s[i]=='-':
+            if s[i]=='-':
+                positive = False
+            i+=1
         ans = 0
-        while (i<len(str)):
-            ch = str[i]
-            if (ch>='0' and ch<='9'):
-                ans = ans*10+ord(ch)-48
-                if ans>0:
-                    counter +=1
-                if counter >10:
-                    break
-                i+=1
+        while i<len(s):
+            if s[i]>='0' and s[i]<='9':
+                ans = ans*10+ord(s[i])-ord('0')
+                if ans>((1<<31)-1) and positive:
+                    return (1<<31)-1
+                if ans>((1<<31)) and (not positive):
+                    return -(1<<31)
             else:
                 break
+            i+=1
         if not positive:
-            ans=-ans
-        if ans>((1<<31)-1):
-            ans = (1<<31) -1
-        if ans<(-(1<<31)):
-            ans = - (1<<31)
+            ans = -ans
         return ans
-        
-        
-            

@@ -6,24 +6,22 @@
 
 class Solution:
     def detectCycle(self, head: ListNode) -> ListNode:
-        if (head is None) or (head.next is None):
+        if head is None:
             return None
-        s = head
-        f = head
-        while not ((f.next is None)):
-            s=s.next
-            f=f.next.next
-            if f is None:
+        if head.next is None:
+            return None
+        fast = head.next.next
+        slow = head.next
+        while fast and slow and fast!=slow:
+            if fast.next is None:
                 return None
-            if f is s:
-                break
-        if f.next is None:
+            fast = fast.next.next
+            slow = slow.next
+        if (fast is None) or (slow is None):
             return None
-        #The number of steps that s moved is the length of cycle
-        #s moving (n-l) more steps can reach ans 
-        #from head moving (n-l) steps is also ans
-        f = head
-        while not(s is f):
-            s=s.next
-            f=f.next
-        return s
+        slow = head
+        while slow!=fast:
+            slow = slow.next
+            fast = fast.next
+        return fast
+        

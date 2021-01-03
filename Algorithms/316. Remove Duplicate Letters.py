@@ -1,19 +1,24 @@
 class Solution:
     def removeDuplicateLetters(self, s: str) -> str:
-        last = [-1 for i in range(26)]
-        added = [False for i in range(26)]
-        for i in range(len(s)):
-            last[ord(s[i])-97] = i
-        res = []
-        for i in range(len(s)):
-            if added[ord(s[i])-97]:
-                continue
-            while (not len(res)==0) and ((res[len(res)-1]>s[i]) and last[ord(res[len(res)-1])-97]>i):
-                added[ord(res[len(res)-1])-97]=False
-                res.pop(len(res)-1)
-            added[ord(s[i])-97]=True
-            res.append(s[i])
-        ans = ""
-        for l in res:
-            ans += l[0]
-        return ans
+        if len(s)==0:
+            return ""
+        c = [0 for i in range(26)]
+        t = 0
+        for ch in s:
+            c[ord(ch)-97]+=1
+            if c[ord(ch)-97]==1:
+                t+=1
+        pos = len(s)
+        c = [0 for i in range(26)]
+        for i in range(len(s)-1,-1,-1):
+            c[ord(s[i])-97]+=1
+            if c[ord(s[i])-97]==1:
+                t-=1
+                if t==0:
+                    pos = i
+                    break
+        for i in range(pos-1,-1,-1):
+            if s[i]<=s[pos]:
+                pos = i
+        temp = s[pos+1:].replace(s[pos],"")
+        return s[pos]+self.removeDuplicateLetters(temp)

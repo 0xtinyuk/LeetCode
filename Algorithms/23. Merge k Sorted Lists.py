@@ -17,4 +17,3 @@ class Solution:
             current.next = ListNode(v)
             current=current.next
         return head.next
-        
